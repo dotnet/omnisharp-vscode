@@ -100,6 +100,8 @@ export async function activate(
         requiredPackageIds.push('OmniSharp');
     }
 
+    requiredPackageIds.push('VSWebAssemblyBridge');
+
     // If the dotnet bundle is installed, this will ensure the dotnet CLI is on the path.
     await initializeDotnetPath();
 
@@ -361,6 +363,7 @@ export async function activate(
             getComponentFolder: (componentName) => {
                 return getComponentFolder(componentName, languageServerOptions);
             },
+            tryToUseVSDbgForMono: BlazorDebugConfigurationProvider.tryToUseVSDbgForMono,
         };
     } else {
         return {

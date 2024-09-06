@@ -58,3 +58,4 @@ webpack.config.js
 
 +RuntimeLicenses/dependencies/*
 coreclr-debug/install.log
+!.vswebassemblybridge/**

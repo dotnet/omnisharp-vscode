@@ -49,7 +49,7 @@ export class RoslynWorkspaceDebugInformationProvider implements IWorkspaceDebugI
 
         // LSP serializes and deserializes URIs as (URI formatted) strings not actual types.  So convert to the actual type here.
         const projects: ProjectDebugInformation[] | undefined = await mapAsync(response, async (p) => {
-            const webProject = isWebProject(p.projectPath);
+            const [webProject, webAssemblyProject] = isWebProject(p.projectPath);
             const webAssemblyBlazor = await isBlazorWebAssemblyProject(p.projectPath);
             return {
                 projectPath: p.projectPath,
@@ -58,6 +58,7 @@ export class RoslynWorkspaceDebugInformationProvider implements IWorkspaceDebugI
                 targetsDotnetCore: p.targetsDotnetCore,
                 isExe: p.isExe,
                 isWebProject: webProject,
+                isWebAssemblyProject: webAssemblyProject,
                 isBlazorWebAssemblyHosted: isBlazorWebAssemblyHosted(
                     p.isExe,
                     webProject,

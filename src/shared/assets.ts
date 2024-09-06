@@ -344,6 +344,49 @@ export class AssetGenerator {
 
         return result;
     }
+
+    public getAssetsPathAndProgram(): [string, string] {
+        let assetsPath = ``;
+        this.executableProjects.forEach((project) => {
+            if (project.isWebAssemblyProject) {
+                assetsPath += path.join(path.dirname(project.outputPath), path.sep);
+                assetsPath += ';';
+            }
+        });
+        assetsPath = assetsPath.slice(0, -1);
+        return [assetsPath, this.executableProjects[0].outputPath];
+    }
+
+    public isDotNet9OrNewer(): boolean {
+        let ret = false;
+        for (let i = 0; i < this.executableProjects.length; i++) {
+            const project = this.executableProjects.at(i);
+            if (project?.isWebAssemblyProject) {
+                let projectFileText = fs.readFileSync(project.projectPath, 'utf8');
+                projectFileText = projectFileText.toLowerCase();
+                const pattern =
+                    /.*<targetframework>.*<\/targetframework>.*|.*<targetframeworks>.*<\/targetframeworks>.*/;
+                const pattern2 = /^net(\d+\.\d+)\b/g;
+                const match = projectFileText.match(pattern);
+                if (match) {
+                    const matches = match[0]
+                        .replace('<targetframework>', '')
+                        .replace('</targetframework>', '')
+                        .replace('<targetframeworks>', '')
+                        .replace('</targetframeworks>', '')
+                        .trim()
+                        .matchAll(pattern2);
+                    for (const match of matches) {
+                        ret = true;
+                        if (match && +match[1] < 9) {
+                            return false;
+                        }
+                    }
+                }
+            }
+        }
+        return ret;
+    }
 }
 
 export enum ProgramLaunchType {

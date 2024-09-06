@@ -343,6 +343,7 @@ export interface MSBuildProject {
     IsWebProject: boolean;
     IsBlazorWebAssemblyStandalone: boolean;
     IsBlazorWebAssemblyHosted: boolean;
+    IsWebAssemblyProject: boolean;
 }
 
 export interface TargetFramework {

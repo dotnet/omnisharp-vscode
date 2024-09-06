@@ -52,6 +52,11 @@ export function registerDebugger(
     context.subscriptions.push(
         vscode.debug.registerDebugConfigurationProvider('coreclr', dotnetWorkspaceConfigurationProvider)
     );
+
+    context.subscriptions.push(
+        vscode.debug.registerDebugConfigurationProvider('monovsdbg', dotnetWorkspaceConfigurationProvider)
+    );
+
     context.subscriptions.push(
         vscode.commands.registerCommand('dotnet.generateAssets', async (selectedIndex) =>
             generateAssets(workspaceInformationProvider, selectedIndex)

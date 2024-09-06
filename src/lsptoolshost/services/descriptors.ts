@@ -41,4 +41,16 @@ export default class Descriptors {
             protocolMajorVersion: 3,
         }
     );
+
+    /**
+     * The descriptor for token acquisition service that is hosted within the VS Code Extension Host process.
+     * Use {@link IQueryExecutionService} for the RPC interface.
+     */
+    static readonly projectQueryExecutionService: ServiceRpcDescriptor = Object.freeze(
+        new ServiceJsonRpcDescriptor(
+            ServiceMoniker.create('Microsoft.VisualStudio.ProjectSystem.Query.Remoting.QueryExecutionService', '0.2'),
+            Formatters.Utf8,
+            MessageDelimiters.HttpLikeHeaders
+        )
+    );
 }

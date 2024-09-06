@@ -40,7 +40,7 @@ export class ProvisionalDebugSessionTracker {
      * @param session Debug session.
      */
     onDidStartDebugSession(session: vscode.DebugSession): void {
-        if (session.type !== 'coreclr') {
+        if (session.type !== 'coreclr' && session.type !== 'monovsdbg') {
             return;
         }
 
@@ -87,6 +87,18 @@ export class ProvisionalDebugSessionTracker {
 
         this._onDidStartDebugSession?.dispose();
         this._onDidTerminateDebugSession?.dispose();
+    }
+    getDebugSessionByType(type: string): vscode.DebugSession | undefined {
+        const sessions = this._sessions;
+        if (sessions != undefined) {
+            const sessionsIt = sessions.entries();
+            for (const session of sessionsIt) {
+                if (session[0].type == type) {
+                    return session[0];
+                }
+            }
+        }
+        return undefined;
     }
 }
 

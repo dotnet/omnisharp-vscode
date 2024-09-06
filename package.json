@@ -686,6 +686,23 @@
       "binaries": [
         "./rzls"
       ]
+    },
+    {
+      "id": "VSWebAssemblyBridge",
+      "description": "VSWebAssemblyBridge (Platform Agnostic)",
+      "url": "https://vsdebugger.blob.core.windows.net/vswebassemblybridge-8-0-532005/vswebassemblybridge.zip",
+      "installPath": ".vswebassemblybridge",
+      "platforms": [
+        "win32",
+        "linux",
+        "darwin"
+      ],
+      "architectures": [
+        "x86",
+        "x86_64",
+        "arm64"
+      ],
+      "integrity": "4C4B641AF5F8EFC975EB26D71A6DB052DDF2E3AF3AA263FC660C65F0B7044DDD"
     }
   ],
   "engines": {
@@ -1159,6 +1176,11 @@
           "csharp.debug.expressionEvaluationOptions.showRawValues": {
             "type": "boolean",
             "description": "%generateOptionsSchema.expressionEvaluationOptions.showRawValues.description%",
+            "default": false
+          },
+          "csharp.wasm.debug.useVSDbg": {
+            "type": "boolean",
+            "description": "%generateOptionsSchema.useVSDbg.description%",
             "default": false
           },
           "dotnet.unitTestDebuggingOptions": {
