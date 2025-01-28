@@ -1,0 +1,5 @@
+{
+    "razor.languageServer.debug": true,
+    "razor.languageServer.directory": "q:/src/razor/artifacts/bin/rzls/Debug/net8.0",
+    "razor.server.trace": "Debug"        
+}
